@@ -3,6 +3,7 @@ from splinter import Browser
 import requests
 import os.path
 import pandas as pd
+import re
 
 def get_page(url):
     executable_path = {"executable_path": "C:/Users/Jason/bin/chromedriver"}
@@ -34,6 +35,8 @@ for div in soup.find_all("div"):
     if 'article_teaser_body' in div['class']:
         red_planet_text.append(div.text)
 
+print("\n"+"="*30+"\n"+red_planet_titles[0]+"\n"+red_planet_text[0])
+
 #########################
 ## SpaceImages Mars image
 #########################
@@ -58,8 +61,28 @@ mars_table_html_from_pd = mars_df.to_html()
 ## GalaxyFacts Mars Table
 #########################
 
-galaxy_facts = requests.get("https://marshemispheres.com/")
-soup = BeautifulSoup(galaxy_facts, "html.parser")
+galaxy_url = "https://marshemispheres.com/"
+galaxy_facts = requests.get(galaxy_url)
+soup = BeautifulSoup(galaxy_facts.text, "html.parser")
+
+links = []
+names = []
+for div in soup.find_all("div", class_="description"):
+    a = div.find('a')
+    links.append(a['href'])
+    names.append(a.find('h3').string)
+
+print(names)
+print(links)
+
+img_links = []
+for link in links:
+    link_page = requests.get(f'{galaxy_url}{link}')
+    link_soup = BeautifulSoup(link_page.text, 'html.parser')
+    dt = link_soup.find(string="Filename").parent
+    img_links.append(dt.next_sibling.next_sibling.find('a')['href'])
+
+print(img_links)
 
 # soup = get_soup("https://marshemispheres.com/", "hemispheres_main")
 
