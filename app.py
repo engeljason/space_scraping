@@ -42,6 +42,7 @@ space_images_url = "https://spaceimages-mars.com/"
 soup = get_soup(space_images_url, "spaceimages.html")
 
 mars_image_url = space_images_url+'/'+ soup.find("img", class_="headerimage")['src']
+print("\n\n"+"="*30+"\n"+mars_image_url+"\n\n")
 
 #########################
 ## GalaxyFacts Mars Table
@@ -51,21 +52,22 @@ soup = get_soup("https://galaxyfacts-mars.com/", "mars_facts.html")
 
 mars_table = soup.find('table', class_= 'table-striped')
 mars_df = pd.read_html(str(mars_table))[0]
-print(mars_df.to_html())
+mars_table_html_from_pd = mars_df.to_html()
+
+#########################
+## GalaxyFacts Mars Table
+#########################
+
+galaxy_facts = requests.get("https://marshemispheres.com/")
+soup = BeautifulSoup(galaxy_facts, "html.parser")
+
+# soup = get_soup("https://marshemispheres.com/", "hemispheres_main")
 
 
 
-# Design an XPATH selector to grab the "Mars in natural color in 2007" image on the right
-# xpath = '//td//a[@class="image"]/img'
-
-# # Use splinter to Click the "Mars in natural color in 2007" image 
-# # to bring up the full resolution image
 # results = browser.find_by_xpath(xpath)
 # img = results[0]
 # img.click()
-
-# Scrape the browser into soup and use soup to find the full resolution image of mars
-# Save the image url to a variable called `img_url`
 
 # # Use the requests library to download and save the image from the `img_url` above
 # import shutil
