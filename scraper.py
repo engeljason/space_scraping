@@ -14,6 +14,12 @@ def get_page(url):
     return html
 
 def get_soup(url, nickname):
+    html = get_page(url)
+    soup = BeautifulSoup(html, 'html.parser')
+    return soup
+
+# fast get soup to reduce Splinter calls
+def fget_soup(url, nickname):
     if not os.path.isfile(nickname):
         html = get_page(url)
         with open(nickname, 'w') as file:
@@ -21,6 +27,7 @@ def get_soup(url, nickname):
     with open(nickname, 'r') as html:
         soup = BeautifulSoup(html, 'html.parser')
     return soup
+
 
 #########################
 ## RedPlanet news articles
