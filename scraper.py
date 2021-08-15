@@ -43,7 +43,7 @@ def get_articles():
             red_planet_titles.append(div.text)
         if 'article_teaser_body' in div['class']:
             red_planet_text.append(div.text)
-    return zip(red_planet_titles, red_planet_text)
+    return list(zip(red_planet_titles, red_planet_text))
 
 
 #########################
