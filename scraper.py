@@ -54,7 +54,7 @@ def get_mars_image():
     space_images_url = "https://spaceimages-mars.com/"
     soup = get_soup(space_images_url, "spaceimages.html")
 
-    mars_image_url = space_images_url+'/'+ soup.find("img", class_="headerimage")['src']
+    mars_image_url = space_images_url+ soup.find("img", class_="headerimage")['src']
     return mars_image_url
 
 
@@ -81,10 +81,12 @@ def get_mars_hemi_imgs():
 
     links = []
     names = []
+    thumbs = []
     for div in soup.find_all("div", class_="description"):
         a = div.find('a')
         links.append(a['href'])
         names.append(a.find('h3').string)
+        thumbs.append(galaxy_url+div.parent.find("img")["src"])
 
     # print(names)
     # print(links)
@@ -100,8 +102,8 @@ def get_mars_hemi_imgs():
     # print(img_links)
 
     mars_hemispheres = []
-    for name, link in zip(names, img_links):
-        mars_hemispheres.append({'title': name, 'img_url' : link})
+    for name, link, thumb in zip(names, img_links, thumbs):
+        mars_hemispheres.append({'title': name, 'img_url' : link, 'thumb' : thumb})
 
     # print(mars_hemispheres)
     return mars_hemispheres

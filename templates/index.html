@@ -19,7 +19,6 @@
             {{ articles[0][0] }}
         </h3>
         {{ articles[0][1] }}
-        <!-- Mars News -->
     </div>
 <hr>
     <div class="d-flex justify-content-between">
@@ -27,8 +26,7 @@
             <h2>
                 Featured Mars Image
             </h2>
-            <img src="{{ mars_image  | safe }}">
-<!-- Featured Mars Image -->
+            <img src="{{ mars_image  | safe }}" alt="{{ mars_image }}">
         </div>
 
         <div>
@@ -36,7 +34,6 @@
                 Mars Facts
             </h3>
             {{ mars_table | safe }}
-<!-- Mars Table -->
         </div>
     </div>
 <hr>
@@ -47,8 +44,10 @@
         <div class="d-flex justify-content-around">
             {% for entry in hemisphere_images %}
             <div class="align-items-center">
-                <h3>{{ entry['title'] }}</h3>
-                <img src="{{ entry['img_url'] | safe }}">            
+                {{ entry['title'] }}
+                <a href="{{ entry['img_url'] }}" >
+                <img src="{{ entry['thumb'] | safe }}" alt="{{ entry['img_url'] }}">            
+                </a>
             </div>
             {% endfor %}
         </div>        
