@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mars Scraper</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    
+    <body>
+    <div class="jumbotron">
+        <h1 class="text-center">Mission to Mars</h1>
+        <hr>
+        <a class="btn btn-primary btn-lg d-flex justify-content-center" href="#" role="button">Load New Data</a>
+    </div>
+
+    <div>
+        <h1>Top Headline</h1>
+        <h3>
+            {{ articles[0][0] }}
+        </h3>
+        {{ articles[0][1] }}
+        <!-- Mars News -->
+    </div>
+<hr>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h2>
+                Featured Mars Image
+            </h2>
+            <img src="{{ mars_image  | safe }}">
+<!-- Featured Mars Image -->
+        </div>
+
+        <div>
+            <h3>
+                Mars Facts
+            </h3>
+            {{ mars_table | safe }}
+<!-- Mars Table -->
+        </div>
+    </div>
+<hr>
+    <div>
+        <h2 class="text-center">
+            Mars Hemispheres
+        </h2>
+        <div class="d-flex justify-content-around">
+            {% for entry in hemisphere_images %}
+            <div class="align-items-center">
+                <h3>{{ entry['title'] }}</h3>
+                <img src="{{ entry['img_url'] | safe }}">            
+            </div>
+            {% endfor %}
+        </div>        
+    </div>
+</body>
+</html>
