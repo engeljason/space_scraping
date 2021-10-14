@@ -4,9 +4,10 @@ import requests
 import os.path
 import pandas as pd
 import re
+from webdriver_manager.chrome import ChromeDriverManager
 
 def get_page(url):
-    executable_path = {"executable_path": "C:/Users/Jason/bin/chromedriver"}
+    executable_path = {"executable_path": ChromeDriverManager().install()}
     browser = Browser("chrome", **executable_path, headless=False)
     browser.visit(url)
     html = browser.html
@@ -108,5 +109,12 @@ def get_mars_hemi_imgs():
     # print(mars_hemispheres)
     return mars_hemispheres
 
-
-
+def get_all():
+    articles = get_articles()
+    mars_table = get_mars_fact_table()
+    mars_image = get_mars_image()
+    hemisphere_images = get_mars_hemi_imgs()
+    return {'articles': articles,
+            'table': mars_table,
+            'mars_img': mars_image,
+            'hemispheres': hemisphere_images }
